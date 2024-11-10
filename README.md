@@ -1,4 +1,4 @@
-# LearningApp
+Learning Platform
 This is a Learning Platform project built with Java, Spring Boot, and DynamoDB, enabling users to enroll in courses and view a personalized dashboard. The application includes authentication integration with AWS Cognito.
 
 Table of Contents
@@ -11,6 +11,7 @@ API Endpoints
 AWS Services Integration
 Troubleshooting
 License
+
 Project Overview
 This project is a web-based platform designed to facilitate student enrollment in courses. Users can log in, view available courses, and enroll in them. The system stores user and course data in DynamoDB and uses AWS Cognito for authentication and user management.
 
@@ -20,17 +21,19 @@ Course Management: View all available courses, enroll in courses, and see enroll
 Personal Dashboard: Each user has a dashboard showing enrolled courses.
 Instructor & Student Roles: Different views based on user roles.
 Technologies Used
-Java (version X.X)
-Spring Boot (version X.X.X)
+Java 
+Spring Boot 
 AWS DynamoDB for data storage
 AWS Cognito for user authentication
 Thymeleaf for server-side rendering
 Gradle/Maven for dependency management
+
 Setup Instructions
 Prerequisites
-Java - Ensure Java JDK is installed (version X.X or later).
+Java - Ensure Java JDK is installed .
 AWS Account - Set up a DynamoDB table and a Cognito User Pool in AWS.
 AWS CLI - Install AWS CLI and configure it with your AWS credentials.
+
 Installation
 Clone the Repository:
 
@@ -88,4 +91,3 @@ DynamoDB Schema Mismatch: If you encounter errors related to DynamoDB schema (e.
 Cognito Authentication Failure: Ensure that the Cognito clientId and userPoolId are correctly specified in the application.properties file.
 
 Session Errors: If session attributes such as studentId or username are not persisting, check session handling in UserController and StudentController.
-
