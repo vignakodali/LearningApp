@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Courses</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+    <header>
+        <h1>Explore Courses</h1>
+        <nav>
+            <ul>
+                <li><a href="/student/dashboard">Dashboard</a></li>
+                <li><a href="/student/explore-courses">Explore Courses</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Available Courses</h2>
+            <ul>
+                <li th:each="course : ${courses}">
+                    <h3 th:text="${course.title}">Course Name</h3>
+                    <p th:text="${course.description}">Course Description</p>
+                    <form th:action="@{/student/enroll/{courseId}(courseId=${course.courseId})}" method="post">
+                        <input type="hidden" name="studentId" th:value="${studentId}" />
+                        <button type="submit">Enroll</button>
+                    </form>
+                </li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

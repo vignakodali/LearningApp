@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Instructor Portal</title>
+</head>
+<body>
+    <h1>Welcome, Instructor!</h1>
+    <nav>
+        <a href="/createCourse">Create New Course</a> |
+        <a href="/manageCourses">Manage Courses</a> |
+        <a href="/logout">Logout</a>
+    </nav>
+
+    <hr>
+    <section>
+        <h2>Your Courses</h2>
+        <ul>
+            <li th:each="course : ${myCourses}">
+                <h3 th:text="${course.name}">Course Name</h3>
+                <p th:text="${course.description}">Course Description</p>
+                <p>Enrolled Students: <span th:text="${course.enrolledStudents}">0</span></p>
+                <a th:href="'/editCourse/' + ${course.id}">Edit Course</a> |
+                <a th:href="'/deleteCourse/' + ${course.id}">Delete Course</a> |
+                <a th:href="'/uploadResources/' + ${course.id}">Upload Resources</a>
+            </li>
+        </ul>
+    </section>
+
+    <hr>
+    <section>
+        <h2>Upload Course Resources</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+    

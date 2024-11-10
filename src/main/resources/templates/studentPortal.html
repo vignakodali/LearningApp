@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1, h2 {
+            color: #007bff;
+            text-align: center;
+        }
+        nav {
+            text-align: center;
+            background-color: #007bff;
+            padding: 1rem;
+            color: #fff;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        section {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            margin-bottom: 1rem;
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        ul li h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        .enroll-btn, .view-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .enroll-btn:hover, .view-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/student/dashboard">Dashboard</a> |
+            <a href="/student/explore-courses">Explore Courses</a> |
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <section>
+        <h2>Available Courses</h2>
+        <ul>
+            <li th:each="course : ${allCourses}">
+                <div>
+                    <h3 th:text="${course.title}">Course Title</h3>
+                    <p th:text="${course.description}">Course Description</p>
+                </div>
+
+                <div th:if="${!enrolledCourses.contains(course)}">
+                    <form th:action="@{/student/enroll}" method="post">
+                        <input type="hidden" name="courseId" th:value="${course.id}" />
+                        <button type="submit" class="enroll-btn">Enroll</button>
+                    </form>
+                </div>
+
+                <div th:if="${enrolledCourses.contains(course)}">
+                    <a th:href="'/student/course/' + ${course.id}" class="view-btn">View Course</a>
+                </div>
+            </li>
+        </ul>
+    </section>
+</body>
+</html>

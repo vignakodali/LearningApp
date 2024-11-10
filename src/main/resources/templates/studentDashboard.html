@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        section h2 {
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+        #enrolled-courses-list ul, #progress-tracker table {
+            width: 100%;
+            padding: 0;
+        }
+        #enrolled-courses-list ul li, #progress-tracker tbody tr {
+            padding: 1rem;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+        #enrolled-courses-list ul li h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        #enrolled-courses-list ul li a {
+            color: #007bff;
+            text-decoration: none;
+            margin-top: 0.5rem;
+        }
+        #enrolled-courses-list ul li a:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Student Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="/student/dashboard">Home</a></li>
+                <li><a href="/student/courses">My Courses</a></li>
+                <li><a href="/student/explore-courses">Explore Courses</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Welcome, Student!</h2>
+            <p>Explore new courses or access your enrolled courses below.</p>
+        </section>
+
+        <section>
+            <h2>Your Enrolled Courses</h2>
+            <div id="enrolled-courses-list">
+                <div th:if="${enrolledCourses.isEmpty()}">
+                    <p>You are not enrolled in any courses. <a href="/student/explore-courses">Explore courses</a></p>
+                </div>
+                <div th:unless="${enrolledCourses.isEmpty()}">
+                    <ul>
+                        <li th:each="course : ${enrolledCourses}">
+                            <h3 th:text="${course.title}">Course Title</h3>
+                            <p th:text="${course.description}">Course Description</p>
+                            <a th:href="'/student/course/' + ${course.id}">View Course</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Progress Tracker</h2>
+            <div id="progress-tracker">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Progress</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="progress : ${courseProgress}">
+                            <td th:text="${progress.courseName}">Course Name</td>
+                            <td th:text="${progress.percentage + '%'}">0%</td>
+                            <td th:text="${progress.status}">Not Started/In Progress/Completed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
